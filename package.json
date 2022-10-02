@@ -4,7 +4,8 @@
   "description": "A platform for NITK students to share their internship and placement experiences",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon backend/app.js"
   },
   "author": "Harshit Gupta",
   "license": "ISC",
