@@ -16,14 +16,6 @@ const registerUser = async (accessToken, refreshToken, profile, cb) => {
   return cb(null, newUser);
 };
 
-const getUser = async (req,res)=>{
-    res.send(
-      `<p>Name ${req.user.name}</p>
-      <p>Roll ${req.user.roll}</p>
-      <a href="/user/logout">Logout</a>
-      `
-    );
-}
 
 const logout = (req, res) => {
   req.logout((err)=>{
@@ -35,4 +27,4 @@ const logout = (req, res) => {
   });
 };
 
-module.exports = {registerUser,getUser,logout}
+module.exports = {registerUser,logout}

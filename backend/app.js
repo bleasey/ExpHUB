@@ -21,7 +21,7 @@ app.use(session(sessionOptions));
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use('/user',require('./routes/userRoutes'));
+app.use('/auth',require('./routes/authRoutes'));
 app.use('/admin',require('./routes/admin'));
 app.get('/',(req,res)=>{
     res.send('<a href="/user/auth/google">Sign in with google</a>');
