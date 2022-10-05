@@ -27,6 +27,7 @@ const getSingleCategory = async (req, res) => {
   }
 };
 const deleteCategory = async (req, res) => {
+    // TODO - delete all questions belonging to that category
   const id = req.params.id;
   const cat = await Category.findByIdAndDelete(id);
   if (cat) res.status(200).json({ ...cat._doc });

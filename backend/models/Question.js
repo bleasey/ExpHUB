@@ -5,7 +5,7 @@ const questionSchema = new mongoose.Schema({
         type:String,
         required:true
     },
-    category:{
+    categoryId:{
         type:mongoose.Schema.Types.ObjectId,
         ref:'Category'
     }
