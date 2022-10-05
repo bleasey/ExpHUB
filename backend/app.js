@@ -14,14 +14,15 @@ const app = express();
 app.use(cors());
 app.use(morgan('tiny'))
 app.use(cookieParser());
-
-const oneDay = 1000 * 60 * 60 * 24;
+app.use(express.json());
+app.use(express.urlencoded({extended:false}));
 
 app.use(session(sessionOptions));
 app.use(passport.initialize());
 app.use(passport.session());
 
 app.use('/user',require('./routes/userRoutes'));
+app.use('/admin',require('./routes/admin'));
 app.get('/',(req,res)=>{
     res.send('<a href="/user/auth/google">Sign in with google</a>');
 })
