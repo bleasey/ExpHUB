@@ -9,6 +9,7 @@ const getAllGyans = asyncHandler(async(req,res)=>{
     if (gyans) res.status(200).json({ gyans });
     else throw new Error("Something went wrong!");
 })
+
 const getSingleGyan = asyncHandler(async(req,res)=>{
     if (!mongoose.isValidObjectId(req.params.id)) {
       res.status(400);
@@ -23,6 +24,7 @@ const getSingleGyan = asyncHandler(async(req,res)=>{
       throw new Error("Something went wrong!");
     }
 })
+
 const addGyan = asyncHandler(async(req,res)=>{
     const { catId,institution,answers} = req.body;
     const userId = mongoose.Types.ObjectId(req.user.id);
@@ -40,6 +42,7 @@ const addGyan = asyncHandler(async(req,res)=>{
       throw new Error("Invalid input fields");
     }
 })
+
 const updateGyan = asyncHandler(async(req,res)=>{
     const gyan = await Gyan.findById(req.params.id);
     if (gyan) {
@@ -63,6 +66,7 @@ const updateGyan = asyncHandler(async(req,res)=>{
       throw new Error("Invalid Gyan Id!");
     }
 })
+
 const deleteGyan = asyncHandler(async(req,res)=>{
     const gyan = await Gyan.findById(req.params.id);
     if (gyan) {
