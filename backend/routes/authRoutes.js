@@ -3,7 +3,7 @@ const router = express.Router();
 const passport = require('passport');
 const {logout} = require('../controllers/auth');
 
-router.get('/auth/google',  passport.authenticate('google', { scope: [ 'email', 'profile' ] }));
+router.get('/google',  passport.authenticate('google', { scope: [ 'email', 'profile' ] }));
 router.get(
   "/google-callback",
   passport.authenticate("google", {

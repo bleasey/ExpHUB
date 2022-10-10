@@ -8,6 +8,7 @@ require('./config/auth');
 const morgan = require('morgan')
 const cors = require('cors');
 const {sessionOptions} = require('./config/session')
+const {errorMiddleware} = require('./middleware/errorMiddleware')
 
 
 const app = express();
@@ -23,9 +24,15 @@ app.use(passport.session());
 
 app.use('/auth',require('./routes/authRoutes'));
 app.use('/admin',require('./routes/admin'));
+app.use('/gyan',require('./routes/gyanRoutes'));
 app.get('/',(req,res)=>{
-    res.send('<a href="/user/auth/google">Sign in with google</a>');
+    res.send('<a href="/auth/google">Sign in with google</a>');
 })
+app.get('/user',(req,res)=>{
+  res.status(200).json({...req.user})
+})
+
+app.use(errorMiddleware);
 
 const start = async () => {
   try {

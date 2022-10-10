@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-const Answer = require('./Answer')
+const {answerSchema} = require('./Answer')
 
 const gyanSchema = new mongoose.Schema({
   category: {
@@ -18,7 +18,7 @@ const gyanSchema = new mongoose.Schema({
     default: Date.now(),
   },
   answers:{
-    type:[Answer]
+    type:[answerSchema]
   }
 });
 

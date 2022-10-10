@@ -10,7 +10,7 @@ const addQuestion = async (req, res) => {
     categoryId,
   });
   if (newQ) {
-    res.status(201).json({ ...newQ._doc });
+    res.status(201).json({ ...newQ });
   } else res.status(400).json({ msg: "Something went wrong" });
 };
 
@@ -27,8 +27,8 @@ const getQuestionsOfACategory = async (req, res) => {
 
 const deleteQuestion = async (req, res) => {
   const { qId } = req.params;
-  const question = await Question.findByIdAndDelete(qId);
-  if (question) res.status(200).json({ ...question._doc });
+  const question = await Question.findByIdAndDelete(qId).lean();
+  if (question) res.status(200).json({ ...question});
   else res.status(400).json({ msg: "Question doesnot exist" });
 };
 

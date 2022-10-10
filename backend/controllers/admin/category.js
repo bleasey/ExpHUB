@@ -14,23 +14,23 @@ const addCategory = async (req, res) => {
   } else {
     const newCat = await Category.create({
       name,
-    });
-    res.status(201).json({ ...newCat._doc });
+    }).lean()
+    res.status(201).json({ ...newCat})
   }
 };
 const getSingleCategory = async (req, res) => {
   const id = req.params.id;
-  const cat = await Category.findById(id);
-  if (cat) res.status(200).json({ ...cat._doc });
+  const cat = await Category.findById(id).lean()
+  if (cat) res.status(200).json({ ...cat })
   else {
-    res.status(404).json({ msg: "Category doesn't exist" });
+    res.status(404).json({ msg: "Category doesn't exist" })
   }
 };
 const deleteCategory = async (req, res) => {
     // TODO - delete all questions belonging to that category
   const id = req.params.id;
-  const cat = await Category.findByIdAndDelete(id);
-  if (cat) res.status(200).json({ ...cat._doc });
+  const cat = await Category.findByIdAndDelete(id).lean();
+  if (cat) res.status(200).json({ ...cat });
   else {
     res.status(404).json({ msg: "Category doesn't exist" });
   }
