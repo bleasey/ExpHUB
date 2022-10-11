@@ -27,4 +27,12 @@ const isAdmin = (req,res,next)=>{
   }
 }
 
-module.exports = { protect,isAdmin};
+const roleNotUser = (req, res, next) => {
+  if (req.user && req.user.role != ROLES.USER) next();
+  else {
+    res.status(403);
+    throw new Error("Error! Trying to access ADMIN or Coordinator only route");
+  }
+};
+
+module.exports = { protect,isAdmin,roleNotUser};

@@ -19,19 +19,23 @@ const userSchema = new mongoose.Schema({
   roll: {
     type: String,
   },
+  yearOfPassing:{
+    type:String
+  },
+  branch:{
+    type:String,
+    enum:['CS','AI','IT','EE','EC','ME','MT','CH','CV','MI']
+  },
   role: {
     type: String,
     enum: [ROLES.ADMIN, ROLES.USER, ROLES.ICO, ROLES.PCO],
     default: ROLES.USER,
   },
-  isPlaced: {
-    type: Boolean,
-    default: false,
-  },
-  isIntern: {
-    type: Boolean,
-    default: false,
-  },
+  status:{
+    type:String,
+    enum:['placed','interned','none'],
+    default:'none'
+  }
 });
 
 module.exports = mongoose.model('User', userSchema);

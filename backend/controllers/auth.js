@@ -5,28 +5,46 @@ const jwt = require("jsonwebtoken");
 require("dotenv").config();
 
 const registerUser = asyncHandler(async (req, res) => {
-  const { name, email, password,roll } = req.body;
+  const { name, email, password } = req.body;
   if (!name || !email || !password) {
     res.status(400);
     throw new Error("Input fields missing");
   }
+  // Check if the email id is an nitk email id
+  const regex = /^[\w.+\-]+@nitk\.edu\.in$/;
+  // add better regex to check if email has a roll number
+  if (!regex.test(email)) {
+    res.status(400);
+    throw new Error("Not a valid nitk email id");
+  }
+
+  // check if user exists
   const user = await User.findOne({ email });
   if (user) {
     res.status(400);
     throw new Error("User already exists");
   }
+
+  // extract roll number from the email
+  let roll = email.substring(email.indexOf(".")+1, email.indexOf("@"));
+  roll = roll.toUpperCase();
+  const yearOfPassing = "20" + (Number(roll.substring(0, 2)) + 4);
+  const branch = roll.substring(3, 5);
+
   // Hash password
   const hashedPassword = await bcrypt.hash(password, 10);
   const newUser = await User.create({
     name,
     email,
     password: hashedPassword,
-    roll
+    roll,
+    branch,
+    yearOfPassing,
   });
   const token = generateToken({
     id: newUser._id,
     name: newUser.name,
-    role:newUser.role
+    role: newUser.role,
   });
   if (newUser) {
     res.status(201).json({
@@ -35,8 +53,9 @@ const registerUser = asyncHandler(async (req, res) => {
       email: newUser.email,
       roll: newUser.roll,
       role: newUser.role,
-      isPlaced:newUser.isPlaced,
-      isIntern: newUser.isIntern,
+      status: newUser.status,
+      branch: newUser.branch,
+      yearOfPassing: newUser.yearOfPassing,
       token,
     });
   } else {
@@ -56,7 +75,7 @@ const loginUser = asyncHandler(async (req, res) => {
     const token = generateToken({
       id: user._id,
       name: user.name,
-      role:user.role
+      role: user.role,
     });
     res.status(201).json({
       id: user._id,
@@ -64,8 +83,9 @@ const loginUser = asyncHandler(async (req, res) => {
       email: user.email,
       roll: user.roll,
       role: user.role,
-      isPlaced: user.isPlaced,
-      isIntern: user.isIntern,
+      status: user.status,
+      branch: user.branch,
+      yearOfPassing: user.yearOfPassing,
       token,
     });
   } else {
