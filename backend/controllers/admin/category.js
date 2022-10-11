@@ -14,8 +14,8 @@ const addCategory = async (req, res) => {
   } else {
     const newCat = await Category.create({
       name,
-    }).lean()
-    res.status(201).json({ ...newCat})
+    })
+    res.status(201).json({ ...newCat._doc})
   }
 };
 const getSingleCategory = async (req, res) => {

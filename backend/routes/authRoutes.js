@@ -1,21 +1,17 @@
-const express = require('express');
+const express = require("express");
+const {
+  getUser,
+  loginUser,
+  registerUser,
+} = require("../controllers/auth");
+const { protect } = require("../middleware/authMiddleware");
+
 const router = express.Router();
-const passport = require('passport');
-const {logout} = require('../controllers/auth');
 
-router.get('/google',  passport.authenticate('google', { scope: [ 'email', 'profile' ] }));
-router.get(
-  "/google-callback",
-  passport.authenticate("google", {
-    successRedirect: "/user",
-    failureRedirect: "/auth/google/failure",
-  })
-);
+router.post("/register", registerUser);
 
-router.get("/logout", logout);
+router.post("/login", loginUser);
 
-router.get("/google/failure", (req, res) => {
-  res.send("Failed to authenticate..");
-});
+router.get("/", protect, getUser);
 
 module.exports = router;

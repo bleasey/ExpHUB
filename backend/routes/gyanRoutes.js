@@ -6,16 +6,18 @@ const {
     updateGyan,
     deleteGyan
 } = require('../controllers/gyan')
+const { protect } = require("../middleware/authMiddleware");
+
 
 const router = express.Router();
 
 router.route('/')
 .get(getAllGyans)
-.post(addGyan)
+.post(protect,addGyan)
 
 router.route('/:id')
 .get(getSingleGyan)
-.patch(updateGyan)
-.delete(deleteGyan)
+.patch(protect,updateGyan)
+.delete(protect,deleteGyan)
 
 module.exports = router
