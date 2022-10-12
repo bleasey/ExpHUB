@@ -1,5 +1,6 @@
 const User = require("../models/User");
 const asyncHandler = require("express-async-handler");
+const ROLES = require('../config/roles')
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
@@ -24,15 +25,15 @@ const registerUser = asyncHandler(async (req, res) => {
     res.status(400);
     throw new Error("User already exists");
   }
-
+  // Hash password
+  const hashedPassword = await bcrypt.hash(password, 10);
   // extract roll number from the email
   let roll = email.substring(email.indexOf(".")+1, email.indexOf("@"));
   roll = roll.toUpperCase();
   const yearOfPassing = "20" + (Number(roll.substring(0, 2)) + 4);
   const branch = roll.substring(3, 5);
 
-  // Hash password
-  const hashedPassword = await bcrypt.hash(password, 10);
+  
   const newUser = await User.create({
     name,
     email,
@@ -79,7 +80,16 @@ const loginUser = asyncHandler(async (req, res) => {
       name: user.name,
       role: user.role,
     });
-    res.status(201).json({
+    if(user.role==ROLES.ADMIN){
+      res.status(200).json({
+        id:user._id,
+        name:user.name,
+        email:user.email,
+        role:user.role,
+        avatar:user.avatar
+      })
+    }
+    res.status(200).json({
       id: user._id,
       name: user.name,
       email: user.email,

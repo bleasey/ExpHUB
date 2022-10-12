@@ -53,8 +53,8 @@ const userSlice = createSlice({
       state.id = id;
       state.name = name;
       state.email = email;
-      state.roll = roll;
       state.role = role;
+      state.roll = roll;
       state.status = status;
       state.branch = branch;
       state.yearOfPassing = yearOfPassing;
@@ -62,7 +62,7 @@ const userSlice = createSlice({
       state.token = token;
       localStorage.setItem(
         "user",
-        JSON.stringify({ id, name, email, token,roll,role,branch,yearOfPassing,status })
+        JSON.stringify({...state})
       );
     },
     reset(state) {
