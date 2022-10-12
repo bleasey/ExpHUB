@@ -1,16 +1,16 @@
 import {createSlice,createAsyncThunk} from '@reduxjs/toolkit'
 import axios from 'axios'
 
-const initialState = {
-    id:"",
-    name:"",
-    roll:"",
-    role:"",
-    email:"",
-    yearOfPassing:"",
-    branch:"",
-    status:""
-}
+const initialState = JSON.parse(localStorage.getItem("user")) || {
+  id: "",
+  name: "",
+  roll: "",
+  role: "",
+  email: "",
+  yearOfPassing: "",
+  branch: "",
+  status: "",
+};
 
 export const loginUser = createAsyncThunk(
   "user/login",
@@ -68,6 +68,11 @@ const userSlice = createSlice({
       state.name = "";
       state.email = "";
       state.token = "";
+      state.roll = "";
+      state.role = "";
+      state.status = "";
+      state.branch = "";
+      state.yearOfPassing = "";
       localStorage.removeItem("user");
     },
   },
