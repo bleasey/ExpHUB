@@ -35,6 +35,9 @@ const userSchema = new mongoose.Schema({
     type:String,
     enum:['placed','interned','none'],
     default:'none'
+  },
+  avatar:{
+    type:String,
   }
 });
 

@@ -40,6 +40,7 @@ const registerUser = asyncHandler(async (req, res) => {
     roll,
     branch,
     yearOfPassing,
+    avatar: `https://avatars.dicebear.com/api/adventurer-neutral/${roll}.svg`,
   });
   const token = generateToken({
     id: newUser._id,
@@ -56,6 +57,7 @@ const registerUser = asyncHandler(async (req, res) => {
       status: newUser.status,
       branch: newUser.branch,
       yearOfPassing: newUser.yearOfPassing,
+      avatar: newUser.avatar,
       token,
     });
   } else {
@@ -86,6 +88,7 @@ const loginUser = asyncHandler(async (req, res) => {
       status: user.status,
       branch: user.branch,
       yearOfPassing: user.yearOfPassing,
+      avatar:user.avatar,
       token,
     });
   } else {

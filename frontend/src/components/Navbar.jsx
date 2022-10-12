@@ -40,6 +40,7 @@ const Navbar = () => {
               </>
             ) : (
               <>
+              <Link to="/dashboard">Dashboard</Link>
                 <Button onClick={handleLogout}>Logout</Button>
               </>
             )}

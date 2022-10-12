@@ -28,14 +28,13 @@ const Login = () => {
       password: Yup.string().required("Required"),
     }),
     onSubmit: (values) => {
-      console.log(values);
       dispatch(loginUser({ ...formik.values }));
     },
   });
 
   useEffect(()=>{
     if(user.token)
-        navigate('/')
+        navigate('/dashboard')
   },[user])
 
   return (

@@ -10,6 +10,7 @@ const initialState = JSON.parse(localStorage.getItem("user")) || {
   yearOfPassing: "",
   branch: "",
   status: "",
+  avatar:""
 };
 
 export const loginUser = createAsyncThunk(
@@ -57,6 +58,7 @@ const userSlice = createSlice({
       state.status = status;
       state.branch = branch;
       state.yearOfPassing = yearOfPassing;
+      state.avatar = avatar;
       state.token = token;
       localStorage.setItem(
         "user",
@@ -73,6 +75,7 @@ const userSlice = createSlice({
       state.status = "";
       state.branch = "";
       state.yearOfPassing = "";
+      state.avatar = "";
       localStorage.removeItem("user");
     },
   },
@@ -89,6 +92,7 @@ const userSlice = createSlice({
           status,
           branch,
           yearOfPassing,
+          avatar
         } = action.payload;
         state.id = id;
         state.name = name;
@@ -98,6 +102,7 @@ const userSlice = createSlice({
         state.status = status;
         state.branch = branch;
         state.yearOfPassing = yearOfPassing;
+        state.avatar = avatar;
         state.token = token;
         localStorage.setItem(
           "user",
@@ -111,6 +116,7 @@ const userSlice = createSlice({
             branch,
             yearOfPassing,
             status,
+            avatar
           })
         );
       })
@@ -128,6 +134,7 @@ const userSlice = createSlice({
           status,
           branch,
           yearOfPassing,
+          avatar
         } = action.payload;
         state.id = id;
         state.name = name;
@@ -137,6 +144,7 @@ const userSlice = createSlice({
         state.status = status;
         state.branch = branch;
         state.yearOfPassing = yearOfPassing;
+        state.avatar = avatar;
         state.token = token;
         localStorage.setItem(
           "user",
@@ -149,6 +157,7 @@ const userSlice = createSlice({
             role,
             branch,
             yearOfPassing,
+            avatar,
             status,
           })
         );
