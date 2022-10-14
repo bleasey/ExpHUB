@@ -3,6 +3,7 @@ const Category = require("../../models/Category");
 const mongoose = require("mongoose");
 
 const addQuestion = async (req, res) => {
+  console.log(req.body)
   const { question, id } = req.body;
   const categoryId = mongoose.Types.ObjectId(id);
   const newQ = await Question.create({
@@ -16,12 +17,12 @@ const addQuestion = async (req, res) => {
 
 const getQuestionsOfACategory = async (req, res) => {
   const catId = req.params.catId;
-  const cat = await Category.findById(catId);
+  const cat = await Category.findById(catId).lean();
   if (cat) {
     const questions = await Question.find({
       categoryId: mongoose.Types.ObjectId(catId),
-    });
-    if (questions) res.status(200).json({ questions });
+    }).lean();
+    if (questions) res.status(200).json({ questions, category:cat.name });
   } else res.status(404).json({ msg: "Category doesnot exist" });
 };
 

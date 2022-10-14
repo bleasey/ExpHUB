@@ -5,7 +5,7 @@ const mongoose = require("mongoose");
 
 const getAllUsers = asyncHandler(async (req, res) => {
   const users = await User.find({ role: { $ne: ROLES.ADMIN } }).lean();
-  if (users) res.status(200).json({ users });
+  if (users) res.status(200).json(users);
   else throw new Error("Something went wrong!");
 });
 const getSingleUser = asyncHandler(async (req, res) => {
@@ -25,12 +25,21 @@ const updateUser = asyncHandler(async (req, res) => {
        res.status(400);
        throw new Error("Invalid User Id");
      }
-     const updatedUser = User.findByIdAndUpdate(req.params.id,req.body,{
+     const updatedUser = await User.findByIdAndUpdate(req.params.id,req.body,{
         runValidators:true,
         new:true
      }).lean()
      res.status(200).json({...updatedUser})
 });
 
+const deleteUser = asyncHandler(async (req,res)=>{
+    if (!mongoose.isValidObjectId(req.params.id)) {
+      res.status(400);
+      throw new Error("Invalid User Id");
+    }
+    const deletedUser = await User.findByIdAndDelete(req.params.id).lean();
+    res.status(200).json({ ...deletedUser });
+})
 
-module.exports = { getAllUsers, getSingleUser,updateUser };
+
+module.exports = { getAllUsers, getSingleUser,updateUser,deleteUser };

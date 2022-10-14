@@ -28,12 +28,13 @@ const Login = () => {
       password: Yup.string().required("Required"),
     }),
     onSubmit: (values) => {
-      dispatch(loginUser({ ...formik.values }));
+      dispatch(loginUser({ ...values }));
     },
   });
 
   useEffect(()=>{
-    if(user.token)
+    if(user.token && user.role=="ADMIN") navigate('/admin')
+    else if(user.token)
         navigate('/dashboard')
   },[user])
 
@@ -46,9 +47,19 @@ const Login = () => {
               LOGIN
             </div>
             <form onSubmit={formik.handleSubmit} className="px-5 space-y-5">
-              <Input name="email" type="email" formik={formik} />
-              <Input name="password" type="password" formik={formik} />
-              <Button type="submit" full inverted>Submit</Button>
+              <Input
+                name="email"
+                type="email"
+                formik={formik}
+              />
+              <Input
+                name="password"
+                type="password"
+                formik={formik}
+              />
+              <Button type="submit" full inverted>
+                Submit
+              </Button>
             </form>
           </div>
         </div>

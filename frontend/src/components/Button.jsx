@@ -1,4 +1,4 @@
-const Button = ({type,full,inverted,onClick,children}) => {
+const Button = ({type,full,inverted,onClick,children,className}) => {
     const classes = `p-2 px-6  rounded-lg  ${
       full ? "w-full" : null
     } text-center ${
@@ -7,7 +7,7 @@ const Button = ({type,full,inverted,onClick,children}) => {
         : "text-white bg-orange-500 hover:bg-orange-600"
     }`;
   return (
-    <button type={type || "button"} className={classes} onClick={onClick}>
+    <button type={type || "button"} className={`${classes} ${className}`} onClick={onClick}>
         {children}
     </button>
   )

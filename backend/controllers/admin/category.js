@@ -2,12 +2,13 @@ const Category = require("../../models/Category");
 
 const getCategories = async (req, res) => {
   const categories = await Category.find({});
-  res.status(200).json({ categories: [...categories] });
+  res.status(200).json([...categories]);
 };
 
 const addCategory = async (req, res) => {
   let { name } = req.body;
-  name = name.toLowerCase();
+  console.log(name)
+    name = name.toLowerCase();
   const cat = await Category.findOne({ name });
   if (cat) {
     res.status(400).json({ msg: "Category already exists" });

@@ -1,10 +1,11 @@
-const Input = ({name,formik,type}) => {
+const Input = ({name,formik,type,labelClasses,inputClasses,nolabel,errorClasses}) => {
     const label = name.charAt(0).toUpperCase() + name.slice(1)
+    
   return (
     <div className="flex flex-col">
-      <label htmlFor={name} className="mb-1 text-white text-lg font-semibold">
+      {!nolabel && <label htmlFor={name} className={labelClasses || "mb-1 text-white text-lg font-semibold"}>
         {label}
-      </label>
+      </label>}
       <input
         type={type}
         name={name}
@@ -13,9 +14,9 @@ const Input = ({name,formik,type}) => {
         onBlur={formik.handleBlur}
         value={formik.values[name]}
         autoComplete="off"
-        className="rounded p-2 outline-none text-sm"
+        className={inputClasses || "rounded p-2 outline-none text-sm"}
       />
-      {formik.touched[name] && formik.errors[name] ? <p className="text-white">{formik.errors[name]}</p> : null}
+      {formik.touched[name] && formik.errors[name] ? <p className={errorClasses || "text-white"}>{formik.errors[name]}</p> : null}
     </div>
   );
 }

@@ -6,10 +6,12 @@ const {
   getAllUsers,
   getSingleUser,
   updateUser,
+  deleteUser
 } = require("../../controllers/admin/user");
 
 router.get("/",protect,roleNotUser, getAllUsers);
-router.get("/:id",protect,roleNotUser, getSingleUser);
+router.get("/:id",protect,roleNotUser, getSingleUser)
+router.delete('/:id',protect,isAdmin,deleteUser)
 router.patch("/:id",protect,isAdmin, updateUser);
 router.patch("/status/:id",protect,roleNotUser, updateUser);
 

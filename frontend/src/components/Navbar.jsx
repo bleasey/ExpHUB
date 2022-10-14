@@ -29,6 +29,10 @@ const Navbar = () => {
             <Link to="/" className="  hover:opacity-50">
               Gyan
             </Link>
+            {user.role=='ADMIN' && <Link to="/admin/users" className="hover:opacity-50">Users</Link>}
+            <Link to="/category" className="  hover:opacity-50">
+              Categories
+            </Link>
             {!user.token ? (
               <>
                 <Link to="/login" className="  hover:opacity-50">
@@ -40,7 +44,7 @@ const Navbar = () => {
               </>
             ) : (
               <>
-              <Link to="/dashboard">Dashboard</Link>
+              <Link to={`${user.role=='ADMIN'?'/admin':'/dashboard'}`}>Dashboard</Link>
                 <Button onClick={handleLogout}>Logout</Button>
               </>
             )}

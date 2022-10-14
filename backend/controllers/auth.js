@@ -80,15 +80,6 @@ const loginUser = asyncHandler(async (req, res) => {
       name: user.name,
       role: user.role,
     });
-    if(user.role==ROLES.ADMIN){
-      res.status(200).json({
-        id:user._id,
-        name:user.name,
-        email:user.email,
-        role:user.role,
-        avatar:user.avatar
-      })
-    }
     res.status(200).json({
       id: user._id,
       name: user.name,

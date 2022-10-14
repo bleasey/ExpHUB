@@ -6,6 +6,6 @@ const { protect, isAdmin } = require("../../middleware/authMiddleware");
 
 router.post('/',protect,isAdmin,addQuestion)
 router.get('/:catId',protect,getQuestionsOfACategory)
-router.delete('delete/:qId',protect,isAdmin,deleteQuestion)
+router.delete('/delete/:qId',protect,isAdmin,deleteQuestion)
 
 module.exports = router;
