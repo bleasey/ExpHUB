@@ -15,6 +15,7 @@ const Register = () => {
     name: "",
     email: "",
     password: "",
+    confimPassword: "",
   };
   const formik = useFormik({
     initialValues,
@@ -28,21 +29,29 @@ const Register = () => {
           return regex.test(value);
         }),
       password: Yup.string().required("Required"),
+      confirmPassword: Yup.string()
+      .required("Required")
+      .when("password", {
+        is: (val) => (val && val.length > 0 ? true : false),
+        then: Yup.string().oneOf(
+          [Yup.ref("password")],
+          "Both password need to be the same"
+        ),
+      })
     }),
     onSubmit: (values) => {
-      dispatch(registerUser({ ...formik.values }));
+      dispatch(registerUser({name:values.name,email:values.email,password:values.password }));
     },
   });
 
   useEffect(() => {
-    if (user.token) 
-        navigate("/dashboard");
+    if (user.token) navigate("/dashboard");
   }, [user]);
 
   return (
     <>
       <section className="mt-4">
-        <div className="container mx-auto flex justify-center items-center mt-20">
+        <div className="container mx-auto flex justify-center items-center m-2">
           <div className="w-full max-w-sm rounded-lg mx-auto px-2 bg-orange-500 p-3 py-5">
             <div className="text-3xl font-semibold text-white text-center mb-4">
               REGISTER
@@ -51,7 +60,10 @@ const Register = () => {
               <Input name="name" type="text" formik={formik} />
               <Input name="email" type="email" formik={formik} />
               <Input name="password" type="password" formik={formik} />
-              <Button type="submit"full inverted>Submit</Button>
+              <Input name="confirmPassword" type="password" formik={formik} />
+              <Button type="submit" full inverted>
+                Submit
+              </Button>
             </form>
           </div>
         </div>

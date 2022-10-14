@@ -4,7 +4,13 @@ const mongoose = require('mongoose')
 
 const getAllGyans = asyncHandler(async(req,res)=>{
     const gyans = await Gyan.find({})
-      .populate('category')
+      .populate(['category','user'])
+      .populate({
+        path:'answers',
+        populate:{
+          path:'question',
+        }
+      })
       .lean();
     if (gyans) res.status(200).json({ ...gyans });
     else throw new Error("Something went wrong!");

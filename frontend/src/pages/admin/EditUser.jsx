@@ -5,6 +5,7 @@ import { selectUser } from "../../features/user";
 import { useSelector } from "react-redux";
 import Button from "../../components/Button";
 import axios from "axios";
+import UserRecord from "../../components/UserRecord";
 
 const EditUser = () => {
   const admin = useSelector(selectUser);
@@ -27,59 +28,145 @@ const EditUser = () => {
   });
 
   return (
-    <section className="mt-4">
+    <section className="m-4">
       <div className="container mx-auto">
         {user.loading || categories.loading ? (
           <p>Loading...</p>
         ) : (
           <div>
-            <h1 className="underline text-3xl text-center uppercase font-bold text-orange-500">
+            <h1 className="underline text-3xl mb-4 text-center uppercase font-bold text-orange-500">
               Edit User
             </h1>
-            <div>{user.response.name}</div>
             <Formik
               initialValues={{
                 status: user.response.status,
-                categories: user.response.categories.map(category=> category._id),
+                categories: user.response.categories.map(
+                  (category) => category._id
+                ),
+                role: user.response.role,
               }}
-              onSubmit={async (values) =>{
-                 console.log(values)
-                    await axios.patch(`http://localhost:5000/admin/user/${user.response._id}`,{...values},{headers:{
-                        Authorization:`Bearer ${admin.token}`
-                    }})
-                    navigate('/admin/users')
-                }}
+              onSubmit={async (values) => {
+                console.log(values);
+                await axios.patch(
+                  `http://localhost:5000/admin/user/${user.response._id}`,
+                  { ...values },
+                  {
+                    headers: {
+                      Authorization: `Bearer ${admin.token}`,
+                    },
+                  }
+                );
+                navigate("/admin/users");
+              }}
             >
               {({ values }) => (
-                <Form>
-                  <div role="group">
-                    <label>
-                      <Field type="radio" name="status" value="none" />
-                      None
-                    </label>
-                    <label>
-                      <Field type="radio" name="status" value="interned" />
-                      Interned
-                    </label>
-                    <label>
-                      <Field type="radio" name="status" value="placed" />
-                      Placed
-                    </label>
+                <>
+                  <div className="flex flex-col space-y-6 md:flex-row md:space-x-20 md:justify-center px-4 mb-8">
+                    <div>
+                      <img
+                        src={user.response.avatar}
+                        alt={user.response.name}
+                        className="w-60"
+                      />
+                    </div>
+                    <div className="flex flex-col space-y-4">
+                      <UserRecord name="Name" value={user.response.name} />
+                      <UserRecord name="Branch" value={user.response.branch} />
+                      <UserRecord
+                        name="Batch"
+                        value={user.response.yearOfPassing}
+                      />
+                      <UserRecord name="Status" value={values.status} />
+                    </div>
                   </div>
-                  <div role="group">
-                    {categories.response.map((category) => (
-                      <label key={category._id}>
-                        <Field
-                          type="checkbox"
-                          name="categories"
-                          value={category._id}
-                        />
-                        {category.name.toUpperCase()}
-                      </label>
-                    ))}
-                  </div>
-                  <Button type="submit">Edit</Button>
-                </Form>
+                  <Form className="flex flex-col space-y-6">
+                    <div>
+                      <p className="text-lg text-orange-500 mb-2">Status</p>
+                      <div role="group" className="flex items-center space-x-4">
+                        <label>
+                          <Field
+                            type="radio"
+                            name="status"
+                            value="none"
+                            className="mr-2"
+                          />
+                          None
+                        </label>
+                        <label>
+                          <Field
+                            type="radio"
+                            name="status"
+                            value="interned"
+                            className="mr-2"
+                          />
+                          Interned
+                        </label>
+                        <label>
+                          <Field
+                            type="radio"
+                            name="status"
+                            value="placed"
+                            className="mr-2"
+                          />
+                          Placed
+                        </label>
+                      </div>
+                    </div>
+                    <div>
+                      <p className="text-lg text-orange-500 mb-2">
+                        Allowed Categories
+                      </p>
+                      <div role="group" className="flex items-center space-x-4">
+                        {categories.response.map((category) => (
+                          <label key={category._id}>
+                            <Field
+                              type="checkbox"
+                              name="categories"
+                              value={category._id}
+                              className="mr-2"
+                            />
+                            {category.name.toUpperCase()}
+                          </label>
+                        ))}
+                      </div>
+                    </div>
+                    <div>
+                      <p className="text-lg text-orange-500 mb-2">Role</p>
+                      <div role="group" className="flex items-center space-x-4">
+                        <label>
+                          <Field
+                            type="radio"
+                            name="role"
+                            value="USER"
+                            className="mr-2"
+                          />
+                          User
+                        </label>
+                        <label>
+                          <Field
+                            type="radio"
+                            name="role"
+                            value="PCO"
+                            className="mr-2"
+                          />
+                          Placement Coordinator
+                        </label>
+                        <label>
+                          <Field
+                            type="radio"
+                            name="role"
+                            value="ICO"
+                            className="mr-2"
+                          />
+                          Internship Coordinator
+                        </label>
+                      </div>
+                    </div>
+                    <Button type="submit" className="max-w-min">
+                      Edit
+                    </Button>
+                  </Form>
+                </>
               )}
             </Formik>
           </div>

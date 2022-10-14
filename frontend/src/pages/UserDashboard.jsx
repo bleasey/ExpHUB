@@ -29,6 +29,7 @@ const UserDashboard = () => {
               <UserRecord name="Branch" value={user.branch} />
               <UserRecord name="Batch" value={user.yearOfPassing} />
               <UserRecord name="Status" value={user.status} />
+              {user.role!=="USER" && <UserRecord name="Role" value={user.role}/>}
             </div>
           </div>
         </div>
