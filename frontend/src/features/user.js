@@ -10,7 +10,8 @@ const initialState = JSON.parse(localStorage.getItem("user")) || {
   yearOfPassing: "",
   branch: "",
   status: "",
-  avatar:""
+  avatar:"",
+  categories:[]
 };
 
 export const loginUser = createAsyncThunk(
@@ -48,23 +49,23 @@ const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
-    setUser(state, action) {
-      const { id, name, email, token ,roll,role,status,branch,yearOfPassing} = action.payload;
-      state.id = id;
-      state.name = name;
-      state.email = email;
-      state.role = role;
-      state.roll = roll;
-      state.status = status;
-      state.branch = branch;
-      state.yearOfPassing = yearOfPassing;
-      state.avatar = avatar;
-      state.token = token;
-      localStorage.setItem(
-        "user",
-        JSON.stringify({...state})
-      );
-    },
+    // setUser(state, action) {
+    //   const { id, name, email, token ,roll,role,status,branch,yearOfPassing} = action.payload;
+    //   state.id = id;
+    //   state.name = name;
+    //   state.email = email;
+    //   state.role = role;
+    //   state.roll = roll;
+    //   state.status = status;
+    //   state.branch = branch;
+    //   state.yearOfPassing = yearOfPassing;
+    //   state.avatar = avatar;
+    //   state.token = token;
+    //   localStorage.setItem(
+    //     "user",
+    //     JSON.stringify({...state})
+    //   );
+    // },
     reset(state) {
       state.id = "";
       state.name = "";
@@ -92,7 +93,8 @@ const userSlice = createSlice({
           status,
           branch,
           yearOfPassing,
-          avatar
+          avatar,
+          categories
         } = action.payload;
         state.id = id;
         state.name = name;
@@ -104,6 +106,7 @@ const userSlice = createSlice({
         state.yearOfPassing = yearOfPassing;
         state.avatar = avatar;
         state.token = token;
+        state.categories = categories;
         localStorage.setItem(
           "user",
           JSON.stringify({
@@ -116,7 +119,8 @@ const userSlice = createSlice({
             branch,
             yearOfPassing,
             status,
-            avatar
+            avatar,
+            categories
           })
         );
       })
@@ -134,7 +138,8 @@ const userSlice = createSlice({
           status,
           branch,
           yearOfPassing,
-          avatar
+          avatar,
+          categories
         } = action.payload;
         state.id = id;
         state.name = name;
@@ -146,6 +151,7 @@ const userSlice = createSlice({
         state.yearOfPassing = yearOfPassing;
         state.avatar = avatar;
         state.token = token;
+        state.categories = categories;
         localStorage.setItem(
           "user",
           JSON.stringify({
@@ -159,6 +165,7 @@ const userSlice = createSlice({
             yearOfPassing,
             avatar,
             status,
+            categories
           })
         );
       })

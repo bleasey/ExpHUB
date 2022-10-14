@@ -38,6 +38,13 @@ const userSchema = new mongoose.Schema({
   },
   avatar:{
     type:String,
+  },
+  categories:{
+    type:[{
+      type:mongoose.Schema.Types.ObjectId,
+      ref:'Category'
+    }],
+    default:[]
   }
 });
 

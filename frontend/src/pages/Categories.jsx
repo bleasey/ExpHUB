@@ -54,11 +54,11 @@ const Categories = () => {
               <h1 className="underline text-3xl text-center uppercase font-bold text-orange-500">
                 Categories
               </h1>
-              <Button onClick={toggleForm}>
+             {user.role=="ADMIN" && <Button onClick={toggleForm}>
                 <AiOutlinePlusCircle className="text-lg" />
-              </Button>
+              </Button>}
             </div>
-            {showForm && <AddCategory setCategory={setData} />}
+            {showForm && user.role=="ADMIN" && <AddCategory setCategory={setData} />}
             <div className="flex flex-col space-y-5 justify-center">
               {data.map((item) => (
                 <Category

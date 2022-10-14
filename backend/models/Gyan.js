@@ -10,9 +10,6 @@ const gyanSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
   },
-  institution: {
-    type: String,
-  },
   createdAt: {
     type: Date,
     default: Date.now(),

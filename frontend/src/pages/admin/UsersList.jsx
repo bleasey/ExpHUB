@@ -35,7 +35,6 @@ const UsersList = () => {
 
     useEffect(()=>{
         if(response!=null){
-            console.log(response)
             setData(response)
         }
     },[response])
@@ -45,13 +44,13 @@ const UsersList = () => {
           {loading ? (
             <p>Loading...</p>
           ) : (
-            <div className="mt-10">
-              <div class="flex flex-col">
-                <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
-                  <div class="py-2 inline-block min-w-full sm:px-6 lg:px-8">
-                    <div class="overflow-hidden">
-                      <table class="min-w-full">
-                        <thead class="bg-white border-b">
+            <div className="mt-2">
+              <div className="flex flex-col">
+                <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
+                  <div className="py-2 inline-block min-w-full sm:px-6 lg:px-8">
+                    <div className="overflow-hidden">
+                      <table className="min-w-full">
+                        <thead className="bg-white border-b">
                           <tr>
                             <TableHeader/>
                             <TableHeader text="Name"/>

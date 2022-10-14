@@ -4,9 +4,9 @@ const mongoose = require('mongoose')
 
 const getAllGyans = asyncHandler(async(req,res)=>{
     const gyans = await Gyan.find({})
-      .populate("category")
+      .populate('category')
       .lean();
-    if (gyans) res.status(200).json({ gyans });
+    if (gyans) res.status(200).json({ ...gyans });
     else throw new Error("Something went wrong!");
 })
 
@@ -26,13 +26,12 @@ const getSingleGyan = asyncHandler(async(req,res)=>{
 })
 
 const addGyan = asyncHandler(async(req,res)=>{
-    const { catId,institution,answers} = req.body;
+    const { catId,answers} = req.body;
     const userId = mongoose.Types.ObjectId(req.user.id);
     const cat = mongoose.Types.ObjectId(catId);
     const gyan = await Gyan.create({
       category:cat,
       user:userId,
-      institution,
       answers
     });
     if (gyan) {
@@ -46,7 +45,7 @@ const addGyan = asyncHandler(async(req,res)=>{
 const updateGyan = asyncHandler(async(req,res)=>{
     const gyan = await Gyan.findById(req.params.id);
     if (gyan) {
-      if (gyan.user != req.user.id) {
+      if (gyan.user != req.user.id || req.user.role!="ADMIN") {
         res.status(403);
         throw new Error("Only the author can update this gyan");
       }

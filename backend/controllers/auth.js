@@ -59,6 +59,7 @@ const registerUser = asyncHandler(async (req, res) => {
       branch: newUser.branch,
       yearOfPassing: newUser.yearOfPassing,
       avatar: newUser.avatar,
+      categories: newUser.categories,
       token,
     });
   } else {
@@ -73,7 +74,7 @@ const loginUser = asyncHandler(async (req, res) => {
     res.status(400);
     throw new Error("Input fields missing");
   }
-  const user = await User.findOne({ email });
+  const user = await User.findOne({ email }).populate('categories');
   if (user && (await bcrypt.compare(password, user.password))) {
     const token = generateToken({
       id: user._id,
@@ -90,6 +91,7 @@ const loginUser = asyncHandler(async (req, res) => {
       branch: user.branch,
       yearOfPassing: user.yearOfPassing,
       avatar:user.avatar,
+      categories:user.categories,
       token,
     });
   } else {

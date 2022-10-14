@@ -7,7 +7,7 @@ const addQuestion = async (req, res) => {
   const { question, id } = req.body;
   const categoryId = mongoose.Types.ObjectId(id);
   const newQ = await Question.create({
-    question,
+    question:question.trim(),
     categoryId,
   });
   if (newQ) {

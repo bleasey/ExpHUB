@@ -26,7 +26,7 @@ const Navbar = () => {
             <Link to="/" className="  hover:opacity-50">
               Home
             </Link>
-            <Link to="/" className="  hover:opacity-50">
+            <Link to="/gyan" className="  hover:opacity-50">
               Gyan
             </Link>
             {user.role=='ADMIN' && <Link to="/admin/users" className="hover:opacity-50">Users</Link>}
@@ -44,7 +44,7 @@ const Navbar = () => {
               </>
             ) : (
               <>
-              <Link to={`${user.role=='ADMIN'?'/admin':'/dashboard'}`}>Dashboard</Link>
+              <Link className="hover:opacity-50" to={`${user.role=='ADMIN'?'/admin':'/dashboard'}`}>Dashboard</Link>
                 <Button onClick={handleLogout}>Logout</Button>
               </>
             )}
