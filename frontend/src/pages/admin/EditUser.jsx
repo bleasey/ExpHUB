@@ -8,14 +8,14 @@ import axios from "axios";
 import UserRecord from "../../components/UserRecord";
 
 const EditUser = () => {
-  const admin = useSelector(selectUser);
+  const USER = useSelector(selectUser);
   const navigate = useNavigate();
   const location = useLocation();
   const user = useAxios({
     method: "GET",
     url: `http://localhost:5000/admin/user/${location.state.id}`,
     headers: {
-      Authorization: `Bearer ${admin.token}`,
+      Authorization: `Bearer ${USER.token}`,
     },
   });
 
@@ -23,7 +23,7 @@ const EditUser = () => {
     method: "GET",
     url: `http://localhost:5000/admin/category`,
     headers: {
-      Authorization: `Bearer ${admin.token}`,
+      Authorization: `Bearer ${USER.token}`,
     },
   });
 
@@ -52,7 +52,7 @@ const EditUser = () => {
                   { ...values },
                   {
                     headers: {
-                      Authorization: `Bearer ${admin.token}`,
+                      Authorization: `Bearer ${USER.token}`,
                     },
                   }
                 );
@@ -80,7 +80,7 @@ const EditUser = () => {
                     </div>
                   </div>
                   <Form className="flex flex-col space-y-6">
-                    <div>
+                   {((USER.role=="ICO" && values.status!="placed") || USER.role=="ADMIN" || USER.role=="PCO") && <div>
                       <p className="text-lg text-orange-500 mb-2">Status</p>
                       <div role="group" className="flex items-center space-x-4">
                         <label>
@@ -101,7 +101,7 @@ const EditUser = () => {
                           />
                           Interned
                         </label>
-                        <label>
+                        {USER.role!="ICO" && <label>
                           <Field
                             type="radio"
                             name="status"
@@ -109,11 +109,12 @@ const EditUser = () => {
                             className="mr-2"
                           />
                           Placed
-                        </label>
+                        </label>}
                       </div>
-                    </div>
+                    </div>}
                     <div>
-                      <p className="text-lg text-orange-500 mb-2">
+                     {USER.role=="ADMIN" &&(<>
+                       <p className="text-lg text-orange-500 mb-2">
                         Allowed Categories
                       </p>
                       <div role="group" className="flex items-center space-x-4">
@@ -129,8 +130,10 @@ const EditUser = () => {
                           </label>
                         ))}
                       </div>
+                     </>
+                      )}
                     </div>
-                    <div>
+                    {USER.role=="ADMIN" && <div>
                       <p className="text-lg text-orange-500 mb-2">Role</p>
                       <div role="group" className="flex items-center space-x-4">
                         <label>
@@ -161,7 +164,7 @@ const EditUser = () => {
                           Internship Coordinator
                         </label>
                       </div>
-                    </div>
+                    </div>}
                     <Button type="submit" className="max-w-min">
                       Edit
                     </Button>

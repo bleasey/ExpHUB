@@ -3,7 +3,15 @@ const Gyan = require('../models/Gyan');
 const mongoose = require('mongoose')
 
 const getAllGyans = asyncHandler(async(req,res)=>{
-    const gyans = await Gyan.find({})
+    let filter = {}
+    if(req.query.category){
+      const category =  req.query.category.split(',')
+      filter = {...filter, category}
+    }
+    if(req.query.user){
+      filter = {...filter, user:req.query.user}
+    }
+    const gyans = await Gyan.find(filter)
       .populate(['category','user'])
       .populate({
         path:'answers',

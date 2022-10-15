@@ -22,7 +22,7 @@ function App() {
     <>
       <Navbar />
       <div className="container mx-auto mt-4">
-      <Button onClick={() => navigate(-1)}>Back</Button>
+        <Button onClick={() => navigate(-1)}>Back</Button>
       </div>
       <Routes>
         <Route path="/" element={<Home />} />
@@ -36,9 +36,10 @@ function App() {
         <Route path="/admin/user/edit" element={<EditUser />} />
         <Route path="/category" element={<Categories />} />
         <Route path="/add" element={<AddGyan />} />
-        <Route path="/gyan" element={<Gyans />} />
+        <Route path="/gyan" element={<Gyans/>}
+        />
         <Route path="/gyan/edit" element={<EditGyan />} />
-        <Route path="/gyan/:id" element={<Gyan/>} />
+        <Route path="/gyan/:id" element={<Gyan />} />
       </Routes>
     </>
   );

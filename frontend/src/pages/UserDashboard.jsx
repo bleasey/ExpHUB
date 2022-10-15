@@ -63,7 +63,7 @@ const UserDashboard = () => {
           <h2 className="text-orange-500 text-2xl font-bold underline mb-4">
               Gyan(s) By You
           </h2>
-          <Gyans url={`http://localhost:5000/gyan/user/${user.id}`}/>
+          <Gyans />
         </div>
       </div>
     </section>

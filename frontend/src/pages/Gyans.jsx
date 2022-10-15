@@ -1,17 +1,22 @@
-import { useEffect,useState } from "react"
+import { useEffect,useState,useMemo } from "react"
 import useAxios from "../hooks/useAxios"
 import GyanItem from '../components/GyanItem'
 import TableHeader from "../components/TableHeader";
 import axios from "axios";
 import { selectUser } from "../features/user";
 import { useSelector } from "react-redux";
+import { useSearchParams } from "react-router-dom";
 
 const Gyans = ({url}) => {
     const user = useSelector(selectUser)
+    const [searchParams,setSearchParams] = useSearchParams();
+    const newUrl = useMemo(()=>{
+        return `http://localhost:5000/gyan?${searchParams.toString()}`;
+    },[searchParams])
   const [data, setData] = useState([]);
   const { response, error, loading } = useAxios({
     method: "GET",
-    url: url || "http://localhost:5000/gyan",
+    url: url || newUrl,
   });
 
   // handle delete

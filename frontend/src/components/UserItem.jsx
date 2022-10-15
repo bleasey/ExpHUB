@@ -1,9 +1,12 @@
 import {AiFillDelete,AiFillEdit,AiFillEye} from 'react-icons/ai'
 import { useNavigate } from 'react-router-dom';
 import UserStatus from './UserStatus';
+import { useSelector } from "react-redux";
+import { selectUser } from "../features/user";
 
 
 const UserItem = ({user,handleDelete}) => {
+  const USER = useSelector(selectUser)
     const navigate = useNavigate();
   return (
     <tr className="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100">
@@ -24,9 +27,9 @@ const UserItem = ({user,handleDelete}) => {
       </td>
       <td className="text-lg text-gray-900 font-light px-6 py-4 whitespace-nowrap ">
         <div className="flex space-x-2 justify-start items-center">
-          <abbr title="Delete">
+          {USER.role=="ADMIN" && <abbr title="Delete">
             <AiFillDelete className="cursor-pointer hover:text-orange-500 transition duration-100 ease-in-out" onClick={handleDelete} />
-          </abbr>
+          </abbr>}
           <abbr title="Edit">
             <AiFillEdit className="cursor-pointer hover:text-orange-500 transition duration-100 ease-in-out" onClick={()=>navigate('/admin/user/edit',{state:{id:user._id}})} />
           </abbr>

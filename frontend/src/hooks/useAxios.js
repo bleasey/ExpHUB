@@ -21,7 +21,7 @@ const useAxios = ({ url, method, body = null, headers = null }) => {
 
   useEffect(() => {
     fetchData();
-  }, [method, body]);
+  }, [method, url,body]);
 
   return { response, error, loading };
 };
