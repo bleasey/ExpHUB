@@ -67,11 +67,11 @@ const Gyans = ({url}) => {
                 Gyans
               </h1>
               <div>
-                <Branch
+                {!url && <Branch
                   filterBranch={filterBranch}
                   branches={data.branches ? data.branches : []}
                   setFilterBranch={(branch) => setFilterBranch(branch)}
-                />
+                />}
               </div>
               <div className="overflow-x-auto mb-10 sm:-mx-6 lg:-mx-8">
                 <div className="py-2 inline-block min-w-full sm:px-6 lg:px-8">
