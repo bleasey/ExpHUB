@@ -58,10 +58,11 @@
 * A user should be able to write a single gyan and each topic but he can write multiple of them.
 
 ## References
-* Jason Watmore's blog
-* LogRocket blog
 * Stack Overflow
+* LogRocket blog
 * Tailwind CSS docs
+* W3School
+* Jason Watmore's blog
 * Mongoose JS docs
 * Formik docs
 * Medium articles
