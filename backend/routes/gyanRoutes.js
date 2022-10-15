@@ -4,7 +4,8 @@ const {
     getSingleGyan,
     addGyan,
     updateGyan,
-    deleteGyan
+    deleteGyan,
+    getAllGyansByAUser
 } = require('../controllers/gyan')
 const { protect } = require("../middleware/authMiddleware");
 
@@ -19,5 +20,7 @@ router.route('/:id')
 .get(getSingleGyan)
 .patch(protect,updateGyan)
 .delete(protect,deleteGyan)
+
+router.get('/user/:id',getAllGyansByAUser)
 
 module.exports = router

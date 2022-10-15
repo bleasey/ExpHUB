@@ -13,6 +13,8 @@ import Button from "./components/Button";
 import EditUser from "./pages/admin/EditUser";
 import AddGyan from "./pages/AddGyan";
 import Gyans from "./pages/Gyans";
+import Gyan from "./pages/Gyan";
+import EditGyan from "./pages/EditGyan";
 
 function App() {
   const navigate = useNavigate();
@@ -35,6 +37,8 @@ function App() {
         <Route path="/category" element={<Categories />} />
         <Route path="/add" element={<AddGyan />} />
         <Route path="/gyan" element={<Gyans />} />
+        <Route path="/gyan/edit" element={<EditGyan />} />
+        <Route path="/gyan/:id" element={<Gyan/>} />
       </Routes>
     </>
   );
