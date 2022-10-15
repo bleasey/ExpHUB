@@ -16,6 +16,7 @@ import Gyans from "./pages/Gyans";
 import Gyan from "./pages/Gyan";
 import EditGyan from "./pages/EditGyan";
 import User from "./pages/User";
+import Error from "./pages/404";
 
 function App() {
   const navigate = useNavigate();
@@ -41,6 +42,7 @@ function App() {
         <Route path="/gyan/edit" element={<EditGyan />} />
         <Route path="/gyan/:id" element={<Gyan />} />
         <Route path="/user/:id" element={<User />} />
+        <Route path="*" element={<Error />} />
       </Routes>
     </>
   );
