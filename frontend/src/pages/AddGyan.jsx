@@ -24,17 +24,14 @@ const AddGyan = () => {
 
     useEffect(()=>{
         if(category.response!=null){
-            console.log(category.response)
             setQuestions(()=>{
                 let q = {};
                 category.response.questions.forEach(item=> q[item.question]="")
-                console.log({q})
                 return q;
             })
             setValidationSchema(()=>{
                 let v = {};
                 category.response.questions.forEach(item=>v[item.question]=Yup.string().required('Required'))
-                console.log({v});
                 return Yup.object(v);
             })
         }

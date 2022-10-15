@@ -29,7 +29,7 @@ const Navbar = () => {
             <Link to="/gyan" className="  hover:opacity-50">
               Gyan
             </Link>
-            {user.role!='USER' && <Link to="/admin/users" className="hover:opacity-50">Users</Link>}
+            {user.token && user.role!='USER' && <Link to="/admin/users" className="hover:opacity-50">Users</Link>}
             <Link to="/category" className="  hover:opacity-50">
               Categories
             </Link>

@@ -47,16 +47,20 @@ const EditUser = () => {
               }}
               onSubmit={async (values) => {
                 console.log(values);
-                await axios.patch(
-                  `http://localhost:5000/admin/user/${user.response._id}`,
-                  { ...values },
-                  {
-                    headers: {
-                      Authorization: `Bearer ${USER.token}`,
-                    },
-                  }
-                );
-                navigate("/admin/users");
+                try {
+                  await axios.patch(
+                    `http://localhost:5000/admin/user/${user.response._id}`,
+                    { ...values },
+                    {
+                      headers: {
+                        Authorization: `Bearer ${USER.token}`,
+                      },
+                    }
+                  );
+                  navigate("/admin/users");
+                } catch (error) {
+                  alert(error.message);
+                }
               }}
             >
               {({ values }) => (
@@ -80,91 +84,120 @@ const EditUser = () => {
                     </div>
                   </div>
                   <Form className="flex flex-col space-y-6">
-                   {((USER.role=="ICO" && values.status!="placed") || USER.role=="ADMIN" || USER.role=="PCO") && <div>
-                      <p className="text-lg text-orange-500 mb-2">Status</p>
-                      <div role="group" className="flex items-center space-x-4">
-                        <label>
-                          <Field
-                            type="radio"
-                            name="status"
-                            value="none"
-                            className="mr-2"
-                          />
-                          None
-                        </label>
-                        <label>
-                          <Field
-                            type="radio"
-                            name="status"
-                            value="interned"
-                            className="mr-2"
-                          />
-                          Interned
-                        </label>
-                        {USER.role!="ICO" && <label>
-                          <Field
-                            type="radio"
-                            name="status"
-                            value="placed"
-                            className="mr-2"
-                          />
-                          Placed
-                        </label>}
-                      </div>
-                    </div>}
-                    <div>
-                     {USER.role=="ADMIN" &&(<>
-                       <p className="text-lg text-orange-500 mb-2">
-                        Allowed Categories
-                      </p>
-                      <div role="group" className="flex items-center space-x-4">
-                        {categories.response.map((category) => (
-                          <label key={category._id}>
+                    {((USER.role == "ICO" && values.status != "placed") ||
+                      USER.role == "ADMIN" ||
+                      USER.role == "PCO") && (
+                      <div>
+                        <p className="text-lg text-orange-500 mb-2">Status</p>
+                        <div
+                          role="group"
+                          className="flex items-center space-x-4"
+                        >
+                          <label>
                             <Field
-                              type="checkbox"
-                              name="categories"
-                              value={category._id}
+                              type="radio"
+                              name="status"
+                              value="none"
                               className="mr-2"
                             />
-                            {category.name.toUpperCase()}
+                            None
                           </label>
-                        ))}
+                          <label>
+                            <Field
+                              type="radio"
+                              name="status"
+                              value="interned"
+                              className="mr-2"
+                            />
+                            Interned
+                          </label>
+                          {USER.role != "ICO" && (
+                            <label>
+                              <Field
+                                type="radio"
+                                name="status"
+                                value="placed"
+                                className="mr-2"
+                              />
+                              Placed
+                            </label>
+                          )}
+                          {USER.role == "ADMIN" && (
+                            <label>
+                              <Field
+                                type="radio"
+                                name="status"
+                                value="others"
+                                className="mr-2"
+                              />
+                              Others
+                            </label>
+                          )}
+                        </div>
                       </div>
-                     </>
+                    )}
+                    <div>
+                      {USER.role == "ADMIN" && (
+                        <>
+                          <p className="text-lg text-orange-500 mb-2">
+                            Allowed Categories
+                          </p>
+                          <div
+                            role="group"
+                            className="flex items-center space-x-4"
+                          >
+                            {categories.response.map((category) => (
+                              <label key={category._id}>
+                                <Field
+                                  type="checkbox"
+                                  name="categories"
+                                  value={category._id}
+                                  className="mr-2"
+                                />
+                                {category.name.toUpperCase()}
+                              </label>
+                            ))}
+                          </div>
+                        </>
                       )}
                     </div>
-                    {USER.role=="ADMIN" && <div>
-                      <p className="text-lg text-orange-500 mb-2">Role</p>
-                      <div role="group" className="flex items-center space-x-4">
-                        <label>
-                          <Field
-                            type="radio"
-                            name="role"
-                            value="USER"
-                            className="mr-2"
-                          />
-                          User
-                        </label>
-                        <label>
-                          <Field
-                            type="radio"
-                            name="role"
-                            value="PCO"
-                            className="mr-2"
-                          />
-                          Placement Coordinator
-                        </label>
-                        <label>
-                          <Field
-                            type="radio"
-                            name="role"
-                            value="ICO"
-                            className="mr-2"
-                          />
-                          Internship Coordinator
-                        </label>
+                    {USER.role == "ADMIN" && (
+                      <div>
+                        <p className="text-lg text-orange-500 mb-2">Role</p>
+                        <div
+                          role="group"
+                          className="flex items-center space-x-4"
+                        >
+                          <label>
+                            <Field
+                              type="radio"
+                              name="role"
+                              value="USER"
+                              className="mr-2"
+                            />
+                            User
+                          </label>
+                          <label>
+                            <Field
+                              type="radio"
+                              name="role"
+                              value="PCO"
+                              className="mr-2"
+                            />
+                            Placement Coordinator
+                          </label>
+                          <label>
+                            <Field
+                              type="radio"
+                              name="role"
+                              value="ICO"
+                              className="mr-2"
+                            />
+                            Internship Coordinator
+                          </label>
+                        </div>
                       </div>
-                    </div>}
+                    )}
                     <Button type="submit" className="max-w-min">
                       Edit
                     </Button>

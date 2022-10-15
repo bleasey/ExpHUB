@@ -12,7 +12,6 @@ const {
 router.get("/",protect,roleNotUser, getAllUsers);
 router.get("/:id",protect,roleNotUser, getSingleUser)
 router.delete('/:id',protect,isAdmin,deleteUser)
-router.patch("/:id",protect,isAdmin, updateUser);
-router.patch("/status/:id",protect,roleNotUser, updateUser);
+router.patch("/:id",protect,roleNotUser, updateUser);
 
 module.exports = router;

@@ -19,6 +19,11 @@ const Gyans = ({url}) => {
     url: url || newUrl,
   });
 
+   useEffect(() => {
+     if (response != null) {
+       setData(response);
+     }
+   }, [response]);
   // handle delete
   const handleDelete = async (id) => {
     try {
@@ -35,12 +40,7 @@ const Gyans = ({url}) => {
     }
   };
 
-  useEffect(() => {
-    if (response != null) {
-      setData(response);
-      console.log(response);
-    }
-  }, [response]);
+ 
   return (
     <section className="m-4">
       <div className="container mx-auto">
@@ -49,6 +49,9 @@ const Gyans = ({url}) => {
         ) : (
           <div className="mt-2">
             <div className="flex flex-col">
+              <h1 className="underline text-3xl text-center uppercase font-bold text-orange-500">
+                Gyans
+              </h1>
               <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
                 <div className="py-2 inline-block min-w-full sm:px-6 lg:px-8">
                   <div className="overflow-hidden">

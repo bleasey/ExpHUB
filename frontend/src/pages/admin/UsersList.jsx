@@ -46,23 +46,30 @@ const UsersList = () => {
           ) : (
             <div className="mt-2">
               <div className="flex flex-col">
+                <h1 className="underline text-3xl text-center uppercase font-bold text-orange-500">
+                  Users
+                </h1>
                 <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
                   <div className="py-2 inline-block min-w-full sm:px-6 lg:px-8">
                     <div className="overflow-hidden">
                       <table className="min-w-full">
                         <thead className="bg-white border-b">
                           <tr>
-                            <TableHeader/>
-                            <TableHeader text="Name"/>
-                            <TableHeader text="Branch"/>
-                            <TableHeader text="Batch"/>
-                            <TableHeader text="Status"/>
-                            <TableHeader text="Options"/>
+                            <TableHeader />
+                            <TableHeader text="Name" />
+                            <TableHeader text="Branch" />
+                            <TableHeader text="Batch" />
+                            <TableHeader text="Status" />
+                            <TableHeader text="Options" />
                           </tr>
                         </thead>
                         <tbody>
-                          {data.map(item=>(
-                            <UserItem user={item} handleDelete={()=>handleDelete(item._id)} key={item._id} />
+                          {data.map((item) => (
+                            <UserItem
+                              user={item}
+                              handleDelete={() => handleDelete(item._id)}
+                              key={item._id}
+                            />
                           ))}
                         </tbody>
                       </table>

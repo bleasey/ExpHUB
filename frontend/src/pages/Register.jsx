@@ -15,7 +15,7 @@ const Register = () => {
     name: "",
     email: "",
     password: "",
-    confimPassword: "",
+    confirmPassword: "",
   };
   const formik = useFormik({
     initialValues,

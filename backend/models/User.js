@@ -33,7 +33,7 @@ const userSchema = new mongoose.Schema({
   },
   status:{
     type:String,
-    enum:['placed','interned','none'],
+    enum:['placed','interned','none','others'],
     default:'none'
   },
   avatar:{
