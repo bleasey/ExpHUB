@@ -5,10 +5,11 @@
 1. Install nodejs and npm on your device.
 2. Clone the repository to your local system.
 3. In the root folder, create a '.env' file
-4. Create a MongoDB Atlas server and add get the MongoDB uri
+4. Create a MongoDB Atlas server and get the MongoDB uri
 5. Add env variables as "MONGO_URI" to the .env file
 6. Add a PORT variable and JWT_SECRET variable too.
 7. Set PORT = 5000
+8. Set JWT_SECRET as a string of your choice.
 
 
 ## Steps to run the project
