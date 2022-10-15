@@ -1,7 +1,7 @@
 const asyncHandler = require('express-async-handler')
 const Gyan = require('../models/Gyan');
 const mongoose = require('mongoose')
-
+const branches = require('../config/branch');
 const getAllGyans = asyncHandler(async(req,res)=>{
     let filter = {}
     if(req.query.category){
@@ -11,17 +11,45 @@ const getAllGyans = asyncHandler(async(req,res)=>{
     if(req.query.user){
       filter = {...filter, user:req.query.user}
     }
-    const gyans = await Gyan.find(filter)
-      .populate(['category','user'])
+    const page = parseInt(req.query.page) - 1 || 0;
+    const limit = parseInt(req.query.limit) || 5;
+    let branch = req.query.branch || "All";
+
+    branch==='All'
+      ? (branch = branches)
+      : (branch = req.query.branch.split(','))
+
+    const total = await Gyan.countDocuments(filter)
+
+    console.log(total)
+    await Gyan.find(filter)
+			.skip(page * limit)
+			.limit(limit)
+      .populate('category')
+      .populate('user',null,{branch:{$in:branch}})
       .populate({
         path:'answers',
         populate:{
           path:'question',
         }
       })
-      .lean();
-    if (gyans) res.status(200).json([...gyans]);
-    else throw new Error("Something went wrong!");
+      .exec(function (err, gyans) {
+        gyans = gyans.filter(function(gyan){
+            return gyan.user!==null; })
+            
+            if (gyans) res.status(200).json(
+              {
+                total,
+                page:page+1,
+                branches,
+                limit,
+                gyans
+              }
+            );
+            else throw new Error("Something went wrong!");
+    })
+
+    
 })
 
 const getAllGyansByAUser = asyncHandler(async(req,res)=>{

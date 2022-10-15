@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const ROLES = require('../config/roles')
+const branches = require('../config/branch')
 
 const userSchema = new mongoose.Schema({
   name: {
@@ -24,7 +25,7 @@ const userSchema = new mongoose.Schema({
   },
   branch:{
     type:String,
-    enum:['CS','AI','IT','EE','EC','ME','MT','CH','CV','MI']
+    enum:branches
   },
   role: {
     type: String,

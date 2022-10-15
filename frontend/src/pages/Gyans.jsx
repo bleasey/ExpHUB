@@ -6,24 +6,38 @@ import axios from "axios";
 import { selectUser } from "../features/user";
 import { useSelector } from "react-redux";
 import { useSearchParams } from "react-router-dom";
+import Pagination from "../components/Pagination";
+import Branch from "../components/Branch";
 
 const Gyans = ({url}) => {
     const user = useSelector(selectUser)
     const [searchParams,setSearchParams] = useSearchParams();
+    const [data,setData] = useState({})
+    const [filterBranch, setFilterBranch] = useState([]);
+    const [page, setPage] = useState(1);
+    const [loading, setLoading] = useState(true)
     const newUrl = useMemo(()=>{
         return `http://localhost:5000/gyan?${searchParams.toString()}`;
     },[searchParams])
-  const [data, setData] = useState([]);
-  const { response, error, loading } = useAxios({
-    method: "GET",
-    url: url || newUrl,
-  });
+
 
    useEffect(() => {
-     if (response != null) {
-       setData(response);
-     }
-   }, [response]);
+    const getAllGyans = async () => {
+      try {
+        const query = `&page=${page}&branch=${filterBranch.toString()}`;
+        const URL = url || newUrl
+        setLoading(true)
+        const { data } = await axios.get(URL + query);
+        setData(data);
+      } catch (err) {
+        alert(err.message);
+      }finally{
+        setLoading(false)
+      }
+    };
+
+    getAllGyans();
+   }, [page,filterBranch]);
   // handle delete
   const handleDelete = async (id) => {
     try {
@@ -49,10 +63,17 @@ const Gyans = ({url}) => {
         ) : (
           <div className="mt-2">
             <div className="flex flex-col">
-              <h1 className="underline text-3xl text-center uppercase font-bold text-orange-500">
+              <h1 className="underline text-3xl text-center uppercase font-bold text-orange-500 mb-4">
                 Gyans
               </h1>
-              <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
+              <div>
+                <Branch
+                  filterBranch={filterBranch}
+                  branches={data.branches ? data.branches : []}
+                  setFilterBranch={(branch) => setFilterBranch(branch)}
+                />
+              </div>
+              <div className="overflow-x-auto mb-10 sm:-mx-6 lg:-mx-8">
                 <div className="py-2 inline-block min-w-full sm:px-6 lg:px-8">
                   <div className="overflow-hidden">
                     <table className="min-w-full">
@@ -67,7 +88,7 @@ const Gyans = ({url}) => {
                         </tr>
                       </thead>
                       <tbody>
-                        {data.map((item) => (
+                        {data.gyans.map((item) => (
                           <GyanItem
                             gyan={item}
                             handleDelete={() => handleDelete(item._id)}
@@ -79,6 +100,12 @@ const Gyans = ({url}) => {
                   </div>
                 </div>
               </div>
+              <Pagination
+                page={page}
+                limit={data.limit ? data.limit : 0}
+                total={data.total ? data.total : 0}
+                setPage={(page) => setPage(page)}
+              />
             </div>
           </div>
         )}
