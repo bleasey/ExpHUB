@@ -34,7 +34,13 @@ const UserItem = ({user,handleDelete}) => {
             <AiFillEdit className="cursor-pointer hover:text-orange-500 transition duration-100 ease-in-out" onClick={()=>navigate('/admin/user/edit',{state:{id:user._id}})} />
           </abbr>
           <abbr title="View">
-            <AiFillEye className="cursor-pointer hover:text-orange-500 transition duration-100 ease-in-out" />
+            <AiFillEye 
+            className="cursor-pointer hover:text-orange-500 transition duration-100 ease-in-out"
+            onClick={()=>{
+              console.log('Clicked')
+              navigate(`/user/${user._id}`,{state:{user}})
+            }}
+             />
           </abbr>
         </div>
       </td>
