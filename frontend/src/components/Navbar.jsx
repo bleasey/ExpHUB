@@ -19,7 +19,7 @@ const Navbar = () => {
           {/* Add a nice logo */}
           <div>
             <div className="text-2xl font-bold">
-              <Link to="/">GYAN</Link>
+              <Link to="/">ExpHUB</Link>
             </div>
           </div>
           <div className="flex space-x-10 items-center ">

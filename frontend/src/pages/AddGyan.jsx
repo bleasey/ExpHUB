@@ -58,6 +58,7 @@ const AddGyan = () => {
                         question: question,
                         answer: values[question.question]
                     }
+                    console.log(answer)
                     answers.push(answer)
                 })
                 await axios.post("http://localhost:5000/gyan",{
