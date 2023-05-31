@@ -13,7 +13,7 @@ const UsersList = () => {
     // handle delete
     const handleDelete = async (id) => {
       try {
-        await axios.delete(`http://localhost:5000/admin/user/${id}`, {
+        await axios.delete(`https://exphub-com.onrender.com/admin/user/${id}`, {
           headers: {
             Authorization: `Bearer ${user.token}`,
           },
@@ -27,7 +27,7 @@ const UsersList = () => {
     };
     const {response,error,loading} = useAxios({
         method:'GET',
-        url:'http://localhost:5000/admin/user',
+        url:'https://exphub-com.onrender.com/admin/user',
         headers:{
             Authorization:`Bearer ${user.token}`
         }

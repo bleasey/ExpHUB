@@ -17,7 +17,7 @@ const AddCategory = ({setCategory}) => {
         try {
           
           const res = await axios.post(
-            "http://localhost:5000/admin/category",
+            "/admin/category",
             { ...values },
             {
               headers: {

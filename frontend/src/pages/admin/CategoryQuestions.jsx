@@ -18,7 +18,7 @@ const CategoryQuestions = () => {
 
   const { response, loading, error } = useAxios({
     method: "GET",
-    url: `http://localhost:5000/admin/question/${id}`,
+    url: `https://exphub-com.onrender.com/admin/question/${id}`,
     headers: {
       Authorization: `Bearer ${user.token}`,
     },
@@ -40,7 +40,7 @@ const CategoryQuestions = () => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/admin/question/delete/${id}`, {
+      await axios.delete(`https://exphub-com.onrender.com/admin/question/delete/${id}`, {
         headers: {
           Authorization: `Bearer ${user.token}`,
         },

@@ -17,7 +17,7 @@ const Gyans = ({url}) => {
     const [page, setPage] = useState(1);
     const [loading, setLoading] = useState(true)
     const newUrl = useMemo(()=>{
-        return `http://localhost:5000/gyan?${searchParams.toString()}`;
+        return `https://exphub-com.onrender.com/gyan?${searchParams.toString()}`;
     },[searchParams])
 
 
@@ -41,7 +41,7 @@ const Gyans = ({url}) => {
   // handle delete
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/gyan/${id}`, {
+      await axios.delete(`https://exphub-com.onrender.com/gyan/${id}`, {
         headers: {
           Authorization: `Bearer ${user.token}`,
         },

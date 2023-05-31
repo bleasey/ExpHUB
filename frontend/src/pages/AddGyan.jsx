@@ -16,7 +16,7 @@ const AddGyan = () => {
     const location = useLocation();
     const category = useAxios({
         method:'GET',
-        url:`http://localhost:5000/admin/question/${location.state.category._id}`,
+        url:`https://exphub-com.onrender.com/admin/question/${location.state.category._id}`,
         headers:{
             Authorization:`Bearer ${user.token}`
         }
@@ -61,7 +61,7 @@ const AddGyan = () => {
                     console.log(answer)
                     answers.push(answer)
                 })
-                await axios.post("http://localhost:5000/gyan",{
+                await axios.post("https://exphub-com.onrender.com/gyan",{
                     catId:location.state.category._id,
                     user:location.state.id,
                     answers

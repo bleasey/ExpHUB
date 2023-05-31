@@ -18,7 +18,7 @@ const EditGyan = () => {
   const gyan = location.state.gyan;
   const category = useAxios({
     method: "GET",
-    url: `http://localhost:5000/admin/question/${gyan.category._id}`,
+    url: `https://exphub-com.onrender.com/admin/question/${gyan.category._id}`,
     headers: {
       Authorization: `Bearer ${user.token}`,
     },
@@ -92,7 +92,7 @@ const EditGyan = () => {
                     answers.push(answer);
                   });
                   await axios.patch(
-                    `http://localhost:5000/gyan/${gyan._id}`,
+                    `https://exphub-com.onrender.com/gyan/${gyan._id}`,
                     {
                       answers,
                     },
