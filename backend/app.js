@@ -7,7 +7,7 @@ const {errorMiddleware} = require('./middleware/errorMiddleware')
 
 
 const corsOptions = {
-  origin: "https://exphub.onrender.com/", // frontend URI (ReactJS)
+  origin: "https://exphub.onrender.com", // frontend URI (ReactJS)
 }
 const app = express();
 app.use(cors(corsOptions));
