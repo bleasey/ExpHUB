@@ -11,7 +11,7 @@
     "start-server": "cd backend && node app.js",
     "install-client": "cd frontend && npm install",
     "build-client": "cd frontend && npm run build",
-    "start-client": "cd frontend && npm run start"
+    "start-client": "cd frontend && npm run dev"
   },
   "author": "Harshit Gupta",
   "license": "ISC",
