@@ -31,6 +31,17 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/dashboard" element={<UserDashboard />} />
+        <Route path="/add-category" element={<AddCategory />} />
+        <Route path="/admin" element={<AdminDashboard />} />
+        <Route path="/admin/questions/:id" element={<CategoryQuestions />} />
+        <Route path="/admin/users" element={<UsersList />} />
+        <Route path="/admin/user/edit" element={<EditUser />} />
+        <Route path="/category" element={<Categories />} />
+        <Route path="/add" element={<AddGyan />} />
+        <Route path="/gyan" element={<Gyans/>}/>
+        <Route path="/gyan/edit" element={<EditGyan />} />
+        <Route path="/gyan/:id" element={<Gyan />} />
+        <Route path="/user/:id" element={<User />} />
         <Route path="*" element={<Error />} />
       </Routes>
     </>
