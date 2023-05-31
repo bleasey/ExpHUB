@@ -17,7 +17,7 @@ const AddCategory = ({setCategory}) => {
         try {
           
           const res = await axios.post(
-            "/admin/category",
+            "https://exphub-com.onrender.com/admin/category",
             { ...values },
             {
               headers: {
